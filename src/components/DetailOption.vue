@@ -32,7 +32,7 @@
 </template>
 
 <script>
-// import axios from 'axios'
+
 export default {
   name: 'detail-option',
   props: ['title', 'items'],
@@ -104,7 +104,6 @@ h3 {
 	display: flex;
 	font-size: 2rem;
 }
-
 .flexList {
 	flex: 4;
 	margin: 0;
@@ -130,8 +129,6 @@ h3 {
 	line-height: 1rem;
 	font-size: 1.8rem;
 }
-
-
 .fade-enter-active, .fade-leave-active {
   transition: all 0.5s;
 }

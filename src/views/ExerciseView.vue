@@ -1,10 +1,14 @@
 <template>
   <div class="question">
-    <h2>问题{{num}}</h2>
-    <p>{{list[num-1].title}}</p>
+    <h3>问题{{num}}</h3>
+    <p class="question-title">{{content.title}}</p>
+    <ul class="question-options">
+      <li v-for="option in content.options">
+        {{option}}
+      </li>
+    </ul>
     <br>
     <form>
-      <p>HTML5文件开头：</p>
       <label>解答</label>
       <input type="text"></input>
     </form>
@@ -12,33 +16,19 @@
 </template>
 
 <script>
-import { mapState } from 'vuex'
 export default {
   name: 'exercise-view',
+  props: ['list'],
   data: function () {
     return {
-      num: this.$route.params.num
     }
   },
   computed: {
-    ...mapState({
-      list: function (state) {
-        return state.question.list
-      }
-    })
-  },
-  created: function () {
-    this.getQuestions()
-  },
-  watch: {
-    '$route': 'getQuestions'
-  },
-  methods: {
-    getQuestions: function () {
-      this.$store.dispatch('getQuestions', {
-        type: this.$route.params.type,
-        id: this.$route.params.id.substr(7)
-      })
+    num () {
+      return Number(this.$route.params.num)
+    },
+    content () {
+      return this.list[Number(this.$route.params.num) - 1]
     }
   }
 }
@@ -46,5 +36,14 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-
+  .question-title {
+    font-size: 2rem;
+  }
+  .question-options {
+    list-style: none;
+    font-size: 1.8rem;
+  }
+  .question-options li {
+    margin-bottom: 1rem;
+  }
 </style>

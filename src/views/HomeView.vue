@@ -21,7 +21,7 @@
 </template>
 
 <script>
-// import axios from 'axios'
+
 import HeaderBar from '@/components/HeaderBar'
 export default {
   name: 'home-view',
