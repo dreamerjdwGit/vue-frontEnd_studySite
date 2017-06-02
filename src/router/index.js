@@ -5,6 +5,7 @@ import HomeView from '@/views/HomeView'
 import ContentView from '@/views/ContentView'
 import TestView from '@/views/TestView'
 import ExerciseView from '@/views/ExerciseView'
+import AnswerProgressView from '@/views/AnswerProgressView'
 
 Vue.use(Router)
 
@@ -35,6 +36,11 @@ export default new Router({
           path: 'exercise/:num',
           name: 'exercise',
           component: ExerciseView
+        },
+        {
+          path: 'answerProgress',
+          name: 'AnswerProgressView',
+          component: AnswerProgressView
         }
       ]
     }

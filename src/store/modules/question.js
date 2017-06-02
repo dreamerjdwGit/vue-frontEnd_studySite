@@ -1,7 +1,10 @@
 import axios from 'axios'
 
 const state = {
-  list: []
+  list: [{
+    title: null,
+    options: []
+  }]
 }
 
 const mutations = {

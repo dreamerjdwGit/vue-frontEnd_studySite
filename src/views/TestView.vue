@@ -5,13 +5,25 @@
         Web前端
         <small>{{type}}练习({{paperID}})</small>
       </h1>
+      <ul class="nav navbar-nav test-ul" >
+        <li>
+          <router-link :to="{ name: 'AnswerProgressView' }">
+            答题情况
+          </router-link>
+        </li>
+        <li>
+          <router-link :to="{ name: 'ContentView' }">
+            返回主目录
+          </router-link>
+        </li>
+      </ul>
     </nav>
     <transition :name="transitionName" mode="out-in">
-      <router-view :list="list"></router-view>
+      <router-view :question="question" :options="options" :answer="answer" :testSum="listLength" :answers="answers" v-on:submitAnswer="submitAnswer"></router-view>
     </transition>
-    <div>
-      <button v-if="Number(num)>1" @click="changeTest()">上一题</button>
-      <button v-if="Number(num)<listLength" @click="changeTest(1)">下一题</button>
+    <div v-show="isShow">
+      <button class="btn btn-primary" v-if="Number(num)>1" @click="changeTest()">上一题</button>
+      <button class="btn btn-primary" v-if="Number(num)<listLength" @click="changeTest(1)">下一题</button>
     </div>
   </div>
 </template>
@@ -22,7 +34,8 @@ export default {
   name: 'test-view',
   data: function () {
     return {
-      transitionName: 'slide-left'
+      transitionName: 'slide-left',
+      answers: []
     }
   },
   computed: {
@@ -33,15 +46,27 @@ export default {
       return this.$route.params.id.substr(7)
     },
     num () {
-      return this.$route.params.num
+      return this.$route.params.num ? this.$route.params.num : null
+    },
+    isShow () {
+      return this.num
     },
     ...mapState({
-      list: function (state) {
-        return state.question.list
-      }
+      list: state => state.question.list
     }),
     listLength () {
       return this.list.length
+    },
+    question () {
+      return this.num ? this.list[Number(this.num) - 1].title : null
+    },
+    options () {
+      return this.num ? this.list[Number(this.num) - 1].options : null
+    },
+    answer () {
+      if (this.answers[Number(this.num) - 1]) {
+        return this.answers[Number(this.num) - 1]
+      }
     }
   },
   created: function () {
@@ -55,10 +80,22 @@ export default {
       const toDepth = toArr.length
       const fromDepth = fromArr.length
 
+      if (toArr[toDepth - 1] === 'answerProgress') {
+        this.question = null
+        this.options = null
+        return
+      }
       const toNum = Number(toArr[toDepth - 1])
       const fromNum = Number(fromArr[fromDepth - 1])
 
       this.transitionName = toNum < fromNum ? 'slide-right' : 'slide-left'
+
+      this.question = this.list[Number(toNum) - 1].title
+      this.options = this.list[Number(toNum) - 1].options
+
+      if (this.answers[Number(this.num) - 1]) {
+        return this.answers[Number(this.num) - 1]
+      }
     }
   },
   methods: {
@@ -81,6 +118,9 @@ export default {
         number = '0' + number
       }
       this.$router.push({ path: '/Test/' + this.type + '/' + this.$route.params.id + '/exercise/' + number })
+    },
+    submitAnswer (arr) {
+      this.answers[arr[0] - 1] = arr[1]
     }
   }
 }
@@ -95,10 +135,9 @@ export default {
   }
   .question {
     margin: 0 auto;
-    margin-top: 6rem;
+    margin-top: 9rem;
     padding: 1rem;
   }
-  
   .slide-left-enter {
     padding-left: 140px;
     opacity: 0;
@@ -113,7 +152,6 @@ export default {
     padding-left: 140px;
     opacity: 0;
   }
-
   .slide-right-enter {
     padding-left: 140px;
     opacity: 0;
@@ -129,5 +167,14 @@ export default {
     opacity: 0;
   }
 
-
+  ul.test-ul {
+    margin: 0;
+    display: flex;
+    width: 100%;
+    height: 3.0rem;
+    text-align: center;
+  }
+  .test-ul>li {
+    flex: 1;
+  }
 </style>

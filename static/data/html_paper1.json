@@ -17,12 +17,12 @@
             "options": ["A. <input type=\"password\"></input>", "B. <input type=\"radio\"></input>", "C. <input type=\"hidden\"></input>", "D. <input type=\"reset\"></input>"]
         },
         {
-            "title": "以下标记符中，没有对应的结束标记的是（）",
+            "title": "使用HTML编写网页代码的基本格式是？",
             "options": ["A. <body> ", "B. <br>", "C. <html>", "D. <title>"]
         },
         {
-            "title": "若要以标题2号字、居中、红色显示”vbscrip”，以下用法中，正确的是（）",
-            "options": ["A. <h2><div align=”center”><color=”#ff00000”>vbscript</div></h2></font>", "B. <h2><div align=”center”><font color=”#ff00000”>vbscript</div></h2></font>", "C. <h2><div align=”center”><font color=”#ff00000”>vbscript</font></div></h2>", "D. <h2><div align=”center”><font color=”#ff00000”>vbscript</font></div></h2>"]
+            "title": "关于下列<a>标签说法错误的是？",
+            "options": ["A. <html><div></div></html>", "B. <html><table><tr><td></td></tr></table></html>", "C. <html><body><frameset></frameset></body></html>", "D. <html><head></head><body></body></html>"]
         },
         {
             "title": "空格对应的html实体是哪个？",
