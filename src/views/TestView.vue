@@ -21,7 +21,7 @@
     <transition :name="transitionName" mode="out-in">
       <router-view :question="question" :options="options" :answer="answer" :testSum="listLength" :answers="answers" v-on:submitAnswer="submitAnswer"></router-view>
     </transition>
-    <div v-show="isShow">
+    <div v-show="isShow" class="controlDiv">
       <button class="btn btn-primary" v-if="Number(num)>1" @click="changeTest()">上一题</button>
       <button class="btn btn-primary" v-if="Number(num)<listLength" @click="changeTest(1)">下一题</button>
     </div>
@@ -143,10 +143,10 @@ export default {
     opacity: 0;
   }
   .slide-left-enter-active {
-    transition: all .8s ease;
+    transition: all .5s ease;
   }
   .slide-left-leave-active {
-   transition: all .8s cubic-bezier(1.0, 0.5, 0.8, 1.0);
+   transition: all .5s cubic-bezier(1.0, 0.5, 0.8, 1.0);
   }
   .slide-left-leave-active {
     padding-left: 140px;
@@ -157,10 +157,10 @@ export default {
     opacity: 0;
   }
   .slide-right-enter-active {
-    transition: all .8s ease;
+    transition: all .5s ease;
   }
   .slide-right-leave-active {
-   transition: all .8s cubic-bezier(1.0, 0.5, 0.8, 1.0);
+   transition: all .5s cubic-bezier(1.0, 0.5, 0.8, 1.0);
   }
   .slide-right-leave-active {
     padding-left: 140px;
@@ -176,5 +176,14 @@ export default {
   }
   .test-ul>li {
     flex: 1;
+  }
+  .controlDiv {
+    padding: 1rem;
+  }
+  .controlDiv>button {
+    width: 7rem;
+    height: 3.2rem;
+    font-size: 1.8rem;
+    margin-right: 1rem;
   }
 </style>

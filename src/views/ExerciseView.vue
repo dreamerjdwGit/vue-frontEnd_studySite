@@ -17,7 +17,7 @@
     <br>
     <form>
       <label>解答</label>
-      <input type="text" :value="picked"></input>
+      <input disabled="true" type="text" :value="picked"></input>
     </form>
   </div>
 </template>
@@ -45,6 +45,18 @@ export default {
       }
     }
   },
+  created () {
+    if (this.answer) {
+      switch (this.answer.split('')[0]) {
+        case 'A': this.selectOptions = 0; break
+        case 'B': this.selectOptions = 1; break
+        case 'C': this.selectOptions = 2; break
+        case 'D': this.selectOptions = 3; break
+      }
+    } else {
+      this.selectOptions = null
+    }
+  },
   computed: {
     num () {
       return Number(this.$route.params.num)
@@ -63,7 +75,6 @@ export default {
   },
   methods: {
     submit () {
-      console.log(this.selectOptions)
       var answer = this.options[this.selectOptions]
       this.$emit('submitAnswer', [this.num, answer])
     }

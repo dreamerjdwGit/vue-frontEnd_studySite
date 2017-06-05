@@ -5,7 +5,7 @@
       <div>
         <span class="warning">未作答:{{noCompleteNum}}问/</span><span>共{{testSum}}问</span>
       </div>
-      <button class="btn btn-info" @click="$router.go(-1)">返回</button>
+      <button class="btn btn-info" @click="printAnswer">打印</button>
     </div>
     <div class="panel-body">
       <table class="table table-striped table-hover">
@@ -14,7 +14,7 @@
             <td>问题{{i}}</td>
             <td v-if="answers[i - 1] == null">未作答</td>
             <td v-else>{{answers[i - 1].split('')[0]}}</td>
-            <td>修改</td>
+            <td><button @click="goExercise(i)" class="btn btn-info">修改</button></td>
           </tr>
         </tbody>
       </table>
@@ -40,12 +40,34 @@ export default {
       }
       return num
     }
+  },
+  methods: {
+    goExercise (number) {
+      if (number > 0 && number < 10) {
+        number = '00' + number
+      } else if (number >= 10 && number < 100) {
+        number = '0' + number
+      }
+      var nowPath = this.$route.path.substr(0, 20) + 'exercise/' + number
+      this.$router.push({ path: nowPath })
+    },
+    printAnswer () {
+      var result = ''
+      for (var i = 0, len = this.testSum; i < len; i++) {
+        result += '第' + (i + 1) + '题：' + (this.answers[i] ? this.answers[i] : '未作答')
+        result += ' \n'
+      }
+      console.log(result)
+    }
   }
 }
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+  td {
+    text-align: center;
+  }
   .question {
     font-family: "宋体",sans-serif;
     font-size: 2rem;
